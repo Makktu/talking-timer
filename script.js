@@ -23,6 +23,7 @@ timerBtn.forEach((btn) => {
 resetBtn.addEventListener("click", () => {
     if (timerOn) {
         console.log("timer stopped");
+        stopTimer();
     } else {
         startTimer(100);
     }
@@ -31,7 +32,16 @@ resetBtn.addEventListener("click", () => {
 const startTimer = function (theTimer) {
     displayTime = "00:00";
     twentyMinsVoice.play();
+    if (theTimer > 59) {
+        // need to work out mins and secs
+        // in a way that can be inserted into timer
+    }
     const theInterval = setInterval(function () {
+        const stopTimer = function () {
+            clearInterval(theInterval);
+            alert("stopped");
+            return;
+        };
         if (theTimer < 60) {
             displayTime = `00:${theTimer > 9 ? theTimer : "0" + theTimer}`;
         } else {
@@ -50,18 +60,4 @@ const startTimer = function (theTimer) {
             console.log("time's up");
         }
     }, 1000);
-    // for (let j = 0; j < theTimer + 1; j++) {
-    //     console.log(theTimer);
-    //     // setTimeout(function () {}, 1000);
-    //     // await new Promise((r) => setTimeout(r, 1000));
-    // }
-    // ! hello Monday John
-    // ! isn't it scary
-    // ! how the circle tightens
-    // ! FIX THE TIMER
-    // ! lov from Sunday John x
-};
-
-const printTime = function (secs) {
-    console.log(secs);
 };
