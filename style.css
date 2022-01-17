@@ -57,3 +57,23 @@ body {
     width: 90px;
     height: 20px;
 }
+
+.alarm-noises {
+    display: flex;
+    /* justify-content: center;
+    align-items: center; */
+    flex-direction: row;
+}
+
+.alarm1,
+.alarm2 {
+    margin: 2px;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.alarm-chosen {
+    background-color: aquamarine;
+    color: black;
+    transition: 0.6s ease;
+}
