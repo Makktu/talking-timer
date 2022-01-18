@@ -1,20 +1,15 @@
 "use strict";
-let displayTime = "00:00";
+let displayTime;
 let timerOn = false;
 let theTimer = 0;
-let theMins = 0;
-let theSecs = 0;
 let pausedMins;
 let pausedSecs;
 let isItZeroYet;
 let secs;
 let resetCount = false;
-
 let alarmChosen = 1;
-
 let voiceOn = true;
 let pauseTimer = false;
-
 let inProgress = false;
 
 const timerBtn = document.querySelectorAll(".timerBtn");
@@ -22,20 +17,20 @@ const resetBtn = document.querySelector(".reset");
 const voiceToggleBtn = document.querySelector(".voice-toggle");
 const pauseBtn = document.querySelector(".pause");
 const customBtn = document.querySelector(".custom");
+const owlBtn = document.querySelector(".alarm1");
+const beepBtn = document.querySelector(".alarm2");
 
 const timerArea = document.querySelector(".the-timer");
 const timesUpSound1 = new Audio("sounds/sf_tawny_owl.mp3");
 const timesUpSound2 = new Audio("sounds/alarm.ogg");
 const tickingClock = new Audio("sounds/clock-1.wav");
 
-const owlBtn = document.querySelector(".alarm1");
-const beepBtn = document.querySelector(".alarm2");
-
 owlBtn.addEventListener("click", () => {
     alarmChosen = 1;
     owlBtn.classList.add("alarm-chosen");
     beepBtn.classList.remove("alarm-chosen");
 });
+
 beepBtn.addEventListener("click", () => {
     alarmChosen = 2;
     beepBtn.classList.add("alarm-chosen");
@@ -64,7 +59,6 @@ pauseBtn.addEventListener("click", () => {
     if (!pauseTimer && inProgress) {
         pauseTimer = true;
     } else {
-        pauseTimer = false;
         if (inProgress) startTimer(pausedMins, pausedSecs);
         pausedMins = null;
         pausedSecs = null;
