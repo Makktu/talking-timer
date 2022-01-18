@@ -1,22 +1,28 @@
 "use strict";
-// ! convert 'the timer' variable into mins and secs and do a custom algorithm
-
-// 20 mins 0 secs
-// 19 mins 59
-// 19 min 58..
-// if secs = 59 mins--
-// if mins = -1 stop times up etc
-
 let displayTime = "00:00";
 let timerOn = false;
 let theTimer = 0;
 let theMins = 0;
 let theSecs = 0;
+let pausedMins;
+let pausedSecs;
+let isItZeroYet;
+let secs;
+let resetCount = false;
 
 let alarmChosen = 1;
 
+let voiceOn = true;
+let pauseTimer = false;
+
+let inProgress = false;
+
 const timerBtn = document.querySelectorAll(".timerBtn");
 const resetBtn = document.querySelector(".reset");
+const voiceToggleBtn = document.querySelector(".voice-toggle");
+const pauseBtn = document.querySelector(".pause");
+const customBtn = document.querySelector(".custom");
+
 const timerArea = document.querySelector(".the-timer");
 const timesUpSound1 = new Audio("sounds/sf_tawny_owl.mp3");
 const timesUpSound2 = new Audio("sounds/alarm.ogg");
@@ -36,81 +42,103 @@ beepBtn.addEventListener("click", () => {
     owlBtn.classList.remove("alarm-chosen");
 });
 
+voiceToggleBtn.addEventListener("click", () => {
+    if (voiceOn) {
+        voiceOn = false;
+        voiceToggleBtn.textContent = "Turn Voice ON";
+    } else {
+        voiceOn = true;
+        voiceToggleBtn.textContent = "Turn Voice OFF";
+    }
+});
+
 timerBtn.forEach((btn) => {
     btn.addEventListener("click", (e) => {
         theTimer = +e.target.className.split(" ")[0];
-
-        console.log(theTimer);
-        theMins = theTimer;
-
-        document.getElementById(`${theTimer}-mins`).play();
+        if (voiceOn) document.getElementById(`${theTimer}-mins`).play();
         startTimer(theTimer);
     });
 });
 
-// resetBtn.addEventListener("click", () => {
-//     if (timerOn) {
-//         console.log("timer stopped");
-//         stopTimer();
-//     } else {
-//         startTimer(100);
-//     }
-// });
+pauseBtn.addEventListener("click", () => {
+    if (!pauseTimer && inProgress) {
+        pauseTimer = true;
+    } else {
+        pauseTimer = false;
+        if (inProgress) startTimer(pausedMins, pausedSecs);
+        pausedMins = null;
+        pausedSecs = null;
+    }
+});
 
-const startTimer = function (theTimer) {
+resetBtn.addEventListener("click", () => {
+    if (inProgress) {
+        resetCount = true;
+    }
+});
+
+customBtn.addEventListener("click", () => {
+    let customTime = prompt("Enter time (in mins):");
+    if (Number.isInteger(+customTime)) {
+        startTimer(+customTime);
+    } else {
+        alert("Not a valid number.");
+    }
+});
+
+const startTimer = function (theTimer, secs) {
+    if (pauseTimer) {
+        pauseTimer = false;
+        isItZeroYet = theTimer * 60 + secs;
+    } else {
+        isItZeroYet = theTimer * 60;
+        secs = 0;
+    }
+
+    inProgress = true;
     const countdownClock = setInterval(function () {
-        timerArea.textContent = `${theMins}m ${theTimer}s`;
+        timerArea.textContent = `${theTimer > 9 ? theTimer : "0" + theTimer}:${
+            secs > 9 ? secs : "0" + secs
+        }`;
 
-        theTimer--;
-        console.log(theTimer);
-        if (theTimer == 2 || theTimer == 4 || theTimer == 6) {
-            tickingClock.play();
+        if (secs == 0) {
+            theTimer--;
+            secs = 59;
+        } else {
+            secs--;
         }
-        if (theTimer < 0) {
+
+        isItZeroYet--;
+
+        if (isItZeroYet < 0) {
+            clearInterval(countdownClock);
+            displayTime = "00:00";
+            timerArea.textContent = displayTime;
             if (alarmChosen == 1) {
                 timesUpSound1.play();
             } else {
                 timesUpSound2.play();
             }
+        }
+
+        if (isItZeroYet == 6) {
+            tickingClock.play();
+        }
+        if (pauseTimer) {
+            pausedMins = theTimer;
+            pausedSecs = secs;
+
             clearInterval(countdownClock);
-            displayTime = "0m 0s";
+        }
+
+        if (resetCount) {
+            pausedMins = null;
+            pausedSecs = null;
+            inProgress = false;
+            displayTime = "00:00";
             timerArea.textContent = displayTime;
+            resetCount = false;
+            clearInterval(countdownClock);
         }
     }, 1000);
 };
-
-// ******************************************************
-
-// displayTime = "00:00";
-//     if (theTimer > 59) {
-//         // need to work out mins and secs
-//         // in a way that can be inserted into timer
-//     }
-//     const theInterval = setInterval(function () {
-//         const stopTimer = function () {
-//             clearInterval(theInterval);
-//             alert("stopped");
-//             return;
-//         };
-//         if (theTimer < 60) {
-//             displayTime = `00:${theTimer > 9 ? theTimer : "0" + theTimer}`;
-//         } else {
-//             // work out the minutes
-//             let minutes = (theTimer / 60 + "").split(".")[0];
-//             let seconds = (theTimer / 60 + "").split(".")[1];
-//             displayTime = `${minutes}:${seconds}`;
-//         }
-//         timerArea.textContent = displayTime;
-//         theTimer--;
-//         if (theTimer < 0) {
-//             clearInterval(theInterval);
-//             timerArea.textContent = "00:00";
-
-//             timerOn = false;
-//             console.log("time's up");
-//         }
-
-//         if (theTimer == 0) {
-//             console.log("zero");
-//         }
-//     }, 1000);
