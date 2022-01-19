@@ -21,6 +21,13 @@
         <audio id="30-mins" src="sounds/30Minutes.wav" preload="auto"></audio>
         <audio id="35-mins" src="sounds/35Minutes.wav" preload="auto"></audio>
         <audio id="40-mins" src="sounds/40Minutes.wav" preload="auto"></audio>
+        <audio id="pause-on" src="sounds/PauseOn.wav" preload="auto"></audio>
+        <audio id="pause-off" src="sounds/PauseOff.wav" preload="auto"></audio>
+        <audio id="reset" src="sounds/Reset.wav" preload="auto"></audio>
+        <audio id="owl-alm" src="sounds/OwlAlarm.wav" preload="auto"></audio>
+        <audio id="beep-alm" src="sounds/BeepAlarm.wav" preload="auto"></audio>
+        <audio id="voice-on" src="sounds/VoiceOn.wav" preload="auto"></audio>
+        <audio id="voice-off" src="sounds/VoiceOff.wav" preload="auto"></audio>
         <i class="fas fa-clock"></i>
 
         <h1>Talking Timer</h1>
@@ -32,16 +39,27 @@
             <div class="35 timerBtn">35</div>
             <div class="40 timerBtn">40</div>
         </div>
-        <div class="inter custom timerBtn">Custom</div>
+        <div class="custom timerBtn">Custom</div>
 
-        <div class="inter pause">PAUSE</div>
-        <div class="inter reset">RESET</div>
-        <div class="inter voice-toggle">Voice OFF</div>
+        <div class="pause-and-reset">
+            <div class="pause" style="display: inline-block">PAUSE</div>
+            <div class="reset" style="display: inline-block">RESET</div>
+        </div>
+
         <div class="alarm-noises">
             <div class="alarm1 alarm-chosen" style="display: inline-block">
                 Owl Alarm
             </div>
             <div class="alarm2" style="display: inline-block">Beep Alarm</div>
+        </div>
+        <div class="voice-toggle">Voice OFF</div>
+        <div class="footer">
+            <p>
+                Created by John McNamara:
+                <a href="https://github.com/Makktu/talking-timer"
+                    >Source Code</a
+                >
+            </p>
         </div>
 
         <script src="script.js"></script>

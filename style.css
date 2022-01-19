@@ -15,7 +15,7 @@ body {
     justify-content: center;
     height: 100vh;
     overflow: hidden;
-    background-color: rgb(0, 0, 0);
+    background: linear-gradient(110deg, #111110 60%, #413e23 60%);
     color: rgb(236, 222, 222);
 }
 
@@ -46,28 +46,29 @@ body {
 }
 
 .custom {
-    width: 100px;
-    font-size: 1.5rem;
-    background-color: orange;
+    font-size: 1.2rem;
+    color: white;
 }
 
-.reset {
+/* .reset {
     background-color: orchid;
     color: black;
     width: 90px;
     height: 20px;
-}
+} */
 
 .alarm-noises {
     display: flex;
     /* justify-content: center;
     align-items: center; */
     flex-direction: row;
+    /* position: relative;
+    bottom: 0; */
 }
 
 .alarm1,
 .alarm2 {
-    margin: 2px;
+    margin: 5px;
     border-radius: 10px;
     padding: 5px;
 }
@@ -78,14 +79,36 @@ body {
     transition: 0.6s ease;
 }
 
-.pause {
-    background-color: brown;
+.pause,
+.reset {
+    background-color: rgb(42, 165, 69);
     border-radius: 10px;
-    padding: 10px;
+    padding: 5px;
 }
 
-.inter {
-    background-color: rgb(41, 46, 37);
-    border-radius: 2px;
-    padding: 2px;
+.reset {
+    background-color: crimson;
+}
+
+.pause-and-reset {
+    margin: 20px;
+}
+
+.voice-toggle {
+    background-color: rgb(11, 12, 10);
+    font-size: 0.9rem;
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 20px;
+}
+
+.footer {
+    font-size: 0.65rem;
+    position: absolute;
+    bottom: 0;
+}
+
+p,
+a {
+    color: white;
 }

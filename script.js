@@ -29,55 +29,72 @@ owlBtn.addEventListener("click", () => {
     alarmChosen = 1;
     owlBtn.classList.add("alarm-chosen");
     beepBtn.classList.remove("alarm-chosen");
+    if (voiceOn) document.getElementById("owl-alm").play();
 });
 
 beepBtn.addEventListener("click", () => {
     alarmChosen = 2;
     beepBtn.classList.add("alarm-chosen");
     owlBtn.classList.remove("alarm-chosen");
+    if (voiceOn) document.getElementById("beep-alm").play();
 });
 
 voiceToggleBtn.addEventListener("click", () => {
     if (voiceOn) {
+        if (voiceOn) document.getElementById("voice-off").play();
         voiceOn = false;
         voiceToggleBtn.textContent = "Turn Voice ON";
     } else {
         voiceOn = true;
         voiceToggleBtn.textContent = "Turn Voice OFF";
+        if (voiceOn) document.getElementById("voice-on").play();
     }
 });
 
 timerBtn.forEach((btn) => {
     btn.addEventListener("click", (e) => {
-        theTimer = +e.target.className.split(" ")[0];
-        if (voiceOn) document.getElementById(`${theTimer}-mins`).play();
-        startTimer(theTimer);
+        if (!inProgress) {
+            theTimer = +e.target.className.split(" ")[0];
+            if (voiceOn) document.getElementById(`${theTimer}-mins`).play();
+            startTimer(theTimer);
+        } else console.log("bad start");
     });
 });
 
 pauseBtn.addEventListener("click", () => {
-    if (!pauseTimer && inProgress) {
-        pauseTimer = true;
-    } else {
-        if (inProgress) startTimer(pausedMins, pausedSecs);
-        pausedMins = null;
-        pausedSecs = null;
-    }
+    if (timerArea.textContent !== "00:00") {
+        if (!pauseTimer && inProgress) {
+            pauseTimer = true;
+            if (voiceOn) document.getElementById("pause-on").play();
+        } else {
+            if (voiceOn) document.getElementById("pause-off").play();
+            if (inProgress) startTimer(pausedMins, pausedSecs);
+            pausedMins = null;
+            pausedSecs = null;
+        }
+    } else console.log("bad pause");
 });
 
 resetBtn.addEventListener("click", () => {
     if (inProgress) {
+        if (voiceOn) document.getElementById("reset").play();
         resetCount = true;
+    }
+
+    if (resetCount && inProgress) {
+        startTimer(pausedMins, pausedSecs);
     }
 });
 
 customBtn.addEventListener("click", () => {
-    let customTime = prompt("Enter time (in mins):");
-    if (Number.isInteger(+customTime)) {
-        startTimer(+customTime);
-    } else {
-        alert("Not a valid number.");
-    }
+    if (!inProgress) {
+        let customTime = prompt("Enter time (in mins):");
+        if (Number.isInteger(+customTime)) {
+            startTimer(+customTime);
+        } else {
+            alert("Not a valid number.");
+        }
+    } else console.log("bad custom");
 });
 
 const startTimer = function (theTimer, secs) {
