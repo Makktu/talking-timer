@@ -27,16 +27,16 @@ const tickingClock = new Audio("sounds/clock-1.wav");
 
 owlBtn.addEventListener("click", () => {
     alarmChosen = 1;
+    timesUpSound1.play();
     owlBtn.classList.add("alarm-chosen");
     beepBtn.classList.remove("alarm-chosen");
-    if (voiceOn) document.getElementById("owl-alm").play();
 });
 
 beepBtn.addEventListener("click", () => {
     alarmChosen = 2;
+    timesUpSound2.play();
     beepBtn.classList.add("alarm-chosen");
     owlBtn.classList.remove("alarm-chosen");
-    if (voiceOn) document.getElementById("beep-alm").play();
 });
 
 voiceToggleBtn.addEventListener("click", () => {
