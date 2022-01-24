@@ -21,22 +21,23 @@ body {
 
 #timers {
     display: inline-block;
-    font-size: 2rem;
+    font-size: 1.8rem;
+    cursor: pointer;
 }
 
 .fa-clock {
-    font-size: 4rem;
+    font-size: 3rem;
 }
 
 .the-timer {
     font-family: "Orbitron", sans-serif;
-    font-size: 3.5rem;
+    font-size: 2.8rem;
 }
 
 .timerBtn {
     display: flex;
-    width: 80px;
-    height: 40px;
+    width: 70px;
+    height: 35px;
     background-color: orangered;
     color: black;
     margin: 10px 10px;
@@ -48,22 +49,13 @@ body {
 .custom {
     font-size: 1.2rem;
     color: white;
+    cursor: pointer;
 }
-
-/* .reset {
-    background-color: orchid;
-    color: black;
-    width: 90px;
-    height: 20px;
-} */
 
 .alarm-noises {
     display: flex;
-    /* justify-content: center;
-    align-items: center; */
+
     flex-direction: row;
-    /* position: relative;
-    bottom: 0; */
 }
 
 .alarm1,
@@ -71,6 +63,7 @@ body {
     margin: 5px;
     border-radius: 10px;
     padding: 5px;
+    cursor: pointer;
 }
 
 .alarm-chosen {
@@ -84,6 +77,12 @@ body {
     background-color: rgb(42, 165, 69);
     border-radius: 10px;
     padding: 5px;
+    cursor: pointer;
+}
+
+.active-timer {
+    background-color: aquamarine;
+    transition: 2s ease;
 }
 
 .reset {
@@ -95,6 +94,7 @@ body {
 }
 
 .voice-toggle {
+    cursor: pointer;
     background-color: rgb(11, 12, 10);
     font-size: 0.9rem;
     border-radius: 10px;

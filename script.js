@@ -55,6 +55,7 @@ timerBtn.forEach((btn) => {
     btn.addEventListener("click", (e) => {
         if (!inProgress) {
             theTimer = +e.target.className.split(" ")[0];
+            e.target.classList.add("active-timer");
             if (voiceOn) document.getElementById(`${theTimer}-mins`).play();
             startTimer(theTimer);
         } else console.log("bad start");
@@ -78,12 +79,13 @@ pauseBtn.addEventListener("click", () => {
 resetBtn.addEventListener("click", () => {
     if (inProgress) {
         if (voiceOn) document.getElementById("reset").play();
+        clearTimerBtns();
         resetCount = true;
     }
 
-    if (resetCount && inProgress) {
-        startTimer(pausedMins, pausedSecs);
-    }
+    // if (resetCount && inProgress) {
+    //     startTimer(pausedMins, pausedSecs);
+    // }
 });
 
 customBtn.addEventListener("click", () => {
@@ -149,7 +151,14 @@ const startTimer = function (theTimer, secs) {
             displayTime = "00:00";
             timerArea.textContent = displayTime;
             resetCount = false;
+
             clearInterval(countdownClock);
         }
     }, 1000);
+};
+
+const clearTimerBtns = function () {
+    timerBtn.forEach((btn) => {
+        btn.classList.remove("active-timer");
+    });
 };
